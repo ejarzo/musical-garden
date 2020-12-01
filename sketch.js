@@ -1,13 +1,8 @@
 const plants = [];
 const SEED_TYPES = { CIRCLE: "circle", SQUARE: "square" };
+const COLORS = { CIRCLE: [50, 80, 20], SQUARE: [200, 110, 10] };
 
-let activeSeedType = SEED_TYPES.CIRCLE;
-
-const setSeedType = (type) => {
-  activeSeedType = type;
-};
-
-const rulesets = [
+const RULE_SETS = [
   {
     startingLetter: "F",
     rules: [
@@ -39,35 +34,42 @@ const rulesets = [
     nGenerations: 4,
     segmentLength: 15,
   },
+  {
+    startingLetter: "F",
+    rules: [["F", [{ value: "F[+F]F", weight: 1 }]]],
+    nGenerations: 3,
+    segmentLength: 50,
+  },
 ];
+
+let activeSeedType = SEED_TYPES.CIRCLE;
+const setSeedType = (type) => {
+  activeSeedType = type;
+};
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
 }
 
-const baseColor = [50, 80, 20];
-
 function draw() {
   background(15, 100);
 
+  plants.forEach((plant) => {
+    push();
+    plant.render2();
+    pop();
+  });
+
   if (activeSeedType === SEED_TYPES.CIRCLE) {
-    fill(...baseColor, 190);
+    fill(...COLORS.CIRCLE, 190);
     noStroke();
     ellipse(mouseX, mouseY, 20, 20);
   } else if (activeSeedType === SEED_TYPES.SQUARE) {
-    // stroke(200, 10, 10, 100);
-    fill(200, 10, 10, 190);
+    fill(...COLORS.SQUARE, 190);
     noStroke();
     rectMode(CENTER);
     rect(mouseX, mouseY, 20, 20);
   }
-  // noStroke();
-  // rotate(-PI / 2);
-  plants.forEach((plant) => {
-    push();
-    plant.render();
-    pop();
-  });
 }
 
 function mousePressed() {
@@ -75,17 +77,18 @@ function mousePressed() {
 
   const plantData = {
     startPos: { x: mouseX, y: mouseY },
+    type: activeSeedType,
   };
   switch (activeSeedType) {
     case SEED_TYPES.CIRCLE:
-      plantData.ruleset = rulesets[0];
+      plantData.ruleset = RULE_SETS[0];
       plantData.theta = random(5, 20);
-      plantData.baseColor = [50, 80, 20];
+      plantData.baseColor = COLORS.CIRCLE;
       break;
     case SEED_TYPES.SQUARE:
-      plantData.ruleset = rulesets[1];
-      plantData.theta = 10;
-      plantData.baseColor = [150, 10, 10];
+      plantData.ruleset = RULE_SETS[1];
+      plantData.theta = 90;
+      plantData.baseColor = COLORS.SQUARE;
       break;
     default:
       break;
