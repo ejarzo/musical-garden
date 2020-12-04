@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0;
@@ -5,4 +9,71 @@ body {
 }
 canvas {
   display: block;
+}
+
+.controls {
+  display: flex;
+  position: absolute;
+}
+
+.controls .btn {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  margin: 10px;
+  background: none;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.controls .btn:after {
+  position: absolute;
+  content: "";
+  height: 4px;
+  left: 0;
+  background: white;
+  width: 100%;
+  bottom: -10px;
+  display: none;
+}
+
+.controls .btn:hover:after {
+  display: block;
+}
+
+.controls .btn--circle:after {
+  background-color: hsl(80, 50%, 30%);
+}
+
+.circle {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: hsl(80, 50%, 30%);
+}
+
+.controls .btn--square:after {
+  background-color: hsl(30, 50%, 50%);
+}
+.square {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  background: hsl(30, 50%, 50%);
+}
+
+.controls .btn--water:after {
+  background-color: hsl(190, 20%, 65%);
+}
+
+.btn--water svg {
+  fill: hsl(190, 20%, 65%);
+  height: 100%;
 }

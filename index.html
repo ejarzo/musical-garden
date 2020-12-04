@@ -3,13 +3,32 @@
   <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-  <script language="javascript" type="text/javascript"
-    src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js">
-  </script>
+  <div>
+    <div class="controls">
+      <button class="btn btn--circle">
+        <span class="circle"></span>
+      </button>
+      <button class="btn btn--square">
+        <span class="square"></span>
+      </button>
+      <button class="btn btn--water">
+        <svg  viewbox="0 0 30 42">
+          <path  d="M15 6
+                Q 15 6, 25 18
+                A 12.8 12.8 0 1 1 5 18
+                Q 15 6 15 6z" />
+          </svg>
+      </button>
+    </div>
+  </div>
+  <script language="javascript" type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.70/Tone.js"></script>
+  <script language="javascript" type="text/javascript" src="teoria.js"></script>
+  <script language="javascript" type="text/javascript" src="utils.js"></script>
+  <script language="javascript" type="text/javascript" src="audio.js"></script>
   <script language="javascript" type="text/javascript" src="LSystem.js"></script>
   <script language="javascript" type="text/javascript" src="Rule.js"></script>
-  <script language="javascript" type="text/javascript" src="Turtle.js"></script>
   <script language="javascript" type="text/javascript" src="Plant.js"></script>
   <script language="javascript" type="text/javascript" src="sketch.js"></script>
 </body>
