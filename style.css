@@ -16,38 +16,46 @@ canvas {
   position: absolute;
 }
 
-.controls .btn {
+.btn {
   cursor: pointer;
   width: 40px;
   height: 40px;
-  padding: 0;
+  /* padding: 15px; */
   margin: 0;
   display: flex;
-  border: none;
   align-items: center;
   justify-content: center;
   margin: 10px;
   background: none;
-  transition: all 0.3s;
+  transition: all 0s;
   position: relative;
+  border: none;
+  border-radius: 2px;
+  border-width: 0px;
+  border-color: hsla(0, 0, 0, 0);
+  border-style: solid;
+  /* stroke-dashoffset: 100; */
+  stroke-dasharray: 0;
 }
 
-.controls .btn:after {
+.btn--label {
   position: absolute;
-  content: "";
-  height: 4px;
-  left: 0;
-  background: white;
-  width: 100%;
-  bottom: -10px;
-  display: none;
+  bottom: -20px;
+  opacity: 0.8;
 }
 
-.controls .btn:hover:after {
-  display: block;
+.btn:hover .btn--label,
+.btn.isActive .btn--label {
+  bottom: -22px;
 }
 
-.controls .btn--circle:after {
+.btn.isActive,
+.btn:hover {
+  border-width: 2px;
+  margin-bottom: 8px;
+}
+
+.btn--circle:after {
   background-color: hsl(80, 50%, 30%);
 }
 
@@ -59,7 +67,7 @@ canvas {
   background: hsl(80, 50%, 30%);
 }
 
-.controls .btn--square:after {
+.btn--square:after {
   background-color: hsl(30, 50%, 50%);
 }
 .square {
@@ -68,12 +76,19 @@ canvas {
   height: 27px;
   background: hsl(30, 50%, 50%);
 }
-
-.controls .btn--water:after {
+/* 
+.btn--water:after {
   background-color: hsl(190, 20%, 65%);
-}
+} */
 
 .btn--water svg {
-  fill: hsl(190, 20%, 65%);
-  height: 100%;
+  fill: currentColor;
 }
+/* 
+.btn--water:before {
+  display: absolute;
+  content: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewbox="0 0 30 42"><path d="M15 6 Q 15 6, 25 18 A 12.8 12.8 0 1 1 5 18 Q 15 6 15 6z" /></svg>');
+  background-size: 50px 50px;
+  width: 50px;
+  height: 50px;
+} */
