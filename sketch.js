@@ -17,7 +17,7 @@ let backgroundGraphics;
 // function so that width and height are instantiated
 const getGroundTriangles = () => [
   {
-    ground: new Ground1([0, 10, 20]),
+    ground: new Ground1([0, 10, 25]),
     points: [
       { x: 0, y: height },
       { x: width / 3, y: height },
@@ -25,7 +25,7 @@ const getGroundTriangles = () => [
     ],
   },
   {
-    ground: new Ground3([200, 10, 20]),
+    ground: new Ground3([200, 10, 25]),
     points: [
       { x: 0, y: 0 },
       { x: width, y: 0 },
@@ -33,7 +33,7 @@ const getGroundTriangles = () => [
     ],
   },
   {
-    ground: new Ground2([40, 10, 20]),
+    ground: new Ground2([40, 10, 25]),
     points: [
       { x: width, y: height },
       { x: width, y: 0 },
@@ -41,7 +41,7 @@ const getGroundTriangles = () => [
     ],
   },
   {
-    ground: new Ground4([0, 54, 20]),
+    ground: new Ground4([0, 54, 25]),
     points: [
       { x: width * 0.2, y: height },
       { x: width * 0.7, y: height },
@@ -59,7 +59,7 @@ const getGroundTriangles = () => [
 ];
 
 const wateringNoise = new Tone.Noise("pink").chain(
-  new Tone.Gain(0.2),
+  new Tone.Gain(0.15),
   OUTPUT_NODE
 );
 
@@ -236,7 +236,7 @@ const initButtons = () => {
   waterBtn.html(
     '<span class="btn--label">5</span><svg viewbox="0 0 30 42"><path d="M15 6 Q 15 6, 25 18 A 12.8 12.8 0 1 1 5 18 Q 15 6 15 6z" /></svg>'
   );
-  waterBtn.position(220, 10);
+  waterBtn.position(230, 10);
   waterBtn.mousePressed(() => {
     clearBtns();
     activeTool = "water";
@@ -338,11 +338,13 @@ const drawButtons = () => {
 };
 
 function setup() {
+  pixelDensity(1);
   createCanvas(window.innerWidth, window.innerHeight);
   groundTriangles = getGroundTriangles();
   backgroundGraphics = createGraphics(width, height);
   drawBackground();
   initButtons();
+  textFont("Roboto Mono");
 }
 
 function draw() {
@@ -360,7 +362,7 @@ function draw() {
   if (activeTool === "water") {
     fill(...COLORS.WATER);
     noStroke();
-    text("Hold to water", 230, 15);
+    text("Hold to water", 240, 15);
   }
   drawButtons();
   plants

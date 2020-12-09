@@ -10,7 +10,7 @@ function Ground2(color) {
   this.outputNode = new Tone.Gain(2);
   this.outputNode.chain(OUTPUT_NODE);
 
-  const musicScale = teoria.note("C").scale("major");
+  const musicScale = teoria.note("D").scale("minor");
   const notes = musicScale.notes();
 
   const updateChordLoop = new Tone.Loop((time) => {
@@ -28,10 +28,35 @@ function Ground2(color) {
     musicScale.get(currentChordRoot + 6),
   ];
 
+  this.getSynth = (waveform) => {
+    return new Tone.MonoSynth({
+      volume: -Infinity,
+      oscillator: { type: waveform },
+      envelope: { attack: 0.01 },
+      filter: {
+        type: "lowpass",
+        frequency: 20000,
+        rolloff: -12,
+        Q: 1,
+        gain: 0,
+      },
+      filterEnvelope: {
+        attack: 0.1,
+        baseFrequency: 20000,
+        decay: 0.2,
+        exponent: 2,
+        octaves: 3,
+        release: 2,
+        sustain: 0.5,
+      },
+    });
+  };
+
   this.renderGround = ({ x, y }, ctx_) => {
     const ctx = ctx_ || window;
     ctx.beginShape();
-    ctx.fill(40, 40, 20 + noise(x, y) * 6);
+    const [h, s, l] = this.color;
+    ctx.fill(h, s, l + noise(x, y) * 6);
     ctx.vertex(x, y + 100);
     ctx.vertex(x + 90, y + 100);
     ctx.vertex(x + 50, y - 20);

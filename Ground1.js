@@ -6,7 +6,33 @@ function Ground1(color) {
   const getRandomNote = () =>
     musicScale.get(Math.floor(random(0, notes.length * 2)));
 
-  this.outputNode = new Tone.Gain().connect(OUTPUT_NODE);
+  this.outputNode = new Tone.Gain(0.1);
+  const compressor = new Tone.Compressor();
+  this.outputNode.chain(compressor, OUTPUT_NODE);
+
+  this.getSynth = (waveform) => {
+    return new Tone.MonoSynth({
+      volume: -Infinity,
+      oscillator: { type: waveform },
+      envelope: { attack: 0.01 },
+      filter: {
+        type: "lowpass",
+        frequency: 20000,
+        rolloff: -12,
+        Q: 1,
+        gain: 0,
+      },
+      filterEnvelope: {
+        attack: 0.1,
+        baseFrequency: 20000,
+        decay: 0.2,
+        exponent: 2,
+        octaves: 3,
+        release: 2,
+        sustain: 0.5,
+      },
+    });
+  };
 
   this.renderGround = ({ x, y }, ctx_) => {
     const ctx = ctx_ || window;
@@ -69,7 +95,7 @@ function Ground1(color) {
       }
     }, 1 / (5 * growSpeed));
 
-    part.start(0);
+    part.start(1);
 
     return part;
   };

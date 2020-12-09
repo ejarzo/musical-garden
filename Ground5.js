@@ -12,6 +12,30 @@ function Ground5(color) {
   effectsChannel.receive("ground-5-send");
   effectsChannel.chain(this.effects, OUTPUT_NODE);
 
+  this.getSynth = (waveform) => {
+    return new Tone.MonoSynth({
+      volume: -Infinity,
+      oscillator: { type: waveform },
+      envelope: { attack: 0.01 },
+      filter: {
+        type: "lowpass",
+        frequency: 20000,
+        rolloff: -12,
+        Q: 1,
+        gain: 0,
+      },
+      filterEnvelope: {
+        attack: 0.1,
+        baseFrequency: 20000,
+        decay: 0.2,
+        exponent: 2,
+        octaves: 3,
+        release: 2,
+        sustain: 0.5,
+      },
+    });
+  };
+
   this.renderGround = ({ x, y }, ctx_) => {
     const ctx = ctx_ || window;
     const [h, s, l] = this.color;

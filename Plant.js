@@ -28,21 +28,7 @@ function Plant(props) {
 
   const meter = new Tone.Meter();
 
-  const synth = new Tone.MonoSynth({
-    volume: -Infinity,
-    oscillator: { type: waveform },
-    envelope: { attack: 0.01 },
-    filter: { type: "lowpass", frequency: 20000, rolloff: -12, Q: 1, gain: 0 },
-    filterEnvelope: {
-      attack: 0.1,
-      baseFrequency: 20000,
-      decay: 0.2,
-      exponent: 2,
-      octaves: 3,
-      release: 2,
-      sustain: 0.5,
-    },
-  });
+  const synth = ground.getSynth(waveform);
 
   const synthOutput = new Tone.Gain();
   synth.chain(
@@ -56,21 +42,23 @@ function Plant(props) {
 
   const sentence = getSentence(ruleset);
 
-  ground.getPart({
-    sentence,
-    synth,
-    synthOutput,
-    getState: () => ({
-      growSpeed,
-      isGrowing,
-      isDoneGrowing,
-      maxLetters,
-    }),
-  });
+  const { getWiggle, getStemWiggle } =
+    ground.getPart({
+      sentence,
+      synth,
+      synthOutput,
+      getState: () => ({
+        growSpeed,
+        isGrowing,
+        isDoneGrowing,
+        maxLetters,
+      }),
+    }) || {};
 
   const gr = createGraphics(width, height);
   const randomWidths = sentence.split("").map((_) => random(2, 15));
-  let noiseAmt = 500;
+  // let noiseAmt = 500;
+  let wiggleAmt = 500;
 
   const [h, s, l] = baseColor;
   const stemHue = getHue(h + (random(12) - 6));
@@ -94,7 +82,7 @@ function Plant(props) {
     const isInColumn = mouseDiffX < 25 && mouseDiffY < 0 && mouseDiffY > -200;
     const isWatering = activeTool === "water" && isInColumn && mouseIsPressed;
     let w = 5;
-    // console.log(opacity);
+
     isGrowing = isStartPhase || isWatering;
 
     if (this.count > 0) {
@@ -102,7 +90,6 @@ function Plant(props) {
     }
 
     if (mouseD > mouseMaxDistance && !isGrowing) {
-      // tint(255, 000);
       image(gr, 0, 0, width, height);
       return;
     }
@@ -129,36 +116,47 @@ function Plant(props) {
         0.4
       )
     );
-    stroke(stemHue, s * saturationMultiplier, l);
-    console.log(saturationMultiplier);
-    strokeWeight(2);
-    const stemColor = gr.scale(constrain(radiusScale, 0.5, 1.2));
+
+    gr.stroke(stemHue, s * saturationMultiplier, l);
+    gr.strokeWeight(2);
+    gr.scale(constrain(radiusScale, 0.5, 1.2));
     drawSeed(0, 0, gr);
     gr.pop();
     gr.rotate(-PI / 2);
 
-    let wiggleAmt = isWatering
-      ? Math.min(noiseAmt++ || 800)
-      : Math.max(noiseAmt--, 500);
-    wiggleAmt = wiggleAmt * 1 - map(mouseD, 0, mouseMaxDistance, 0, 1);
+    if (saturationMultiplier === 0) {
+      if (isWatering) {
+        wiggleAmt += 5;
+      } else {
+        wiggleAmt -= 5;
+      }
+      wiggleAmt = constrain(wiggleAmt, 10, 600);
+    } else {
+      if (isWatering) {
+        wiggleAmt += 1;
+      } else {
+        wiggleAmt -= 1;
+      }
+      wiggleAmt = constrain(wiggleAmt, 10, 100);
+    }
+
     const noiseVal = noise(this.count / 50) * (wiggleAmt / 50);
 
-    // osc.detune.value = isInGround ? noiseVal * 4 - 2 : noiseVal * 50 - 25;
-
-    synth.detune.value = ground.getDetune(noiseVal);
-
-    // gr.scale(map(startPos.y, 0, height, 0.3, 4));
+    wiggleAmt = wiggleAmt * 1 - map(mouseD, 0, mouseMaxDistance, 0, 1);
+    if (getWiggle) {
+      wiggleAmt = getWiggle();
+    }
+    if (synth.detune) {
+      synth.detune.value = ground.getDetune(noiseVal);
+    }
     gr.colorMode(HSL);
+
     for (let i = 0; i < maxLetters; i++) {
       const c = sentence[i];
-      const indexNoiseVal = noise(this.count / 80, i) - 0.5;
-      const angle = radians(
-        theta + ((indexNoiseVal * wiggleAmt) / 80) * (1 / (w / 2))
-      );
-      [];
+      const indexNoiseVal =
+        (getStemWiggle && getStemWiggle()) || noise(this.count / 80, i) - 0.5;
+      const angle = radians(theta + indexNoiseVal * wiggleAmt * (1 / w));
       if (c === "F" || c === "G") {
-        // console.log(ground.color);
-        // colorMode(HSL);
         const stemColor = gr.lerpColor(
           color(
             ground.color[0],
