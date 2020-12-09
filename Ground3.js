@@ -67,7 +67,7 @@ function Ground3(color) {
       getWiggle: () => {
         const startPos = map(startX, 0, width, 0, 1);
         const percent = part.progress + startPos;
-        rect(startPos, 10, 100, 20);
+        // rect(startPos, 10, 100, 20);
         return (sin(percent * 2 * PI) + 1) * 50;
       },
     };
