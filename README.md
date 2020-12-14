@@ -1,5 +1,7 @@
 # [Musical Garden](https://musical-garden.netlify.app/)
 
+![Screen Shot 2020-12-09 at 9 07 49 PM](https://user-images.githubusercontent.com/9386882/102028436-4e106800-3d78-11eb-8155-d7e308503980.png)
+
 This web instrument allows you to make music by planting and watering different kinds of “audio seeds” that grow into lush melodies and textures.
 
 Watering the seeds causes them to grow both visually and sonically, and distinct areas in the garden cause the plants to behave in different ways.
