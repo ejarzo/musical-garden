@@ -59,13 +59,13 @@ function Ground1(color) {
     let currNoteIndex = Math.floor(random(0, notes.length * 3) / 2);
 
     const part = new Tone.Loop((time) => {
-      // console.log(getState());
       const { isGrowing, isDoneGrowing, maxLetters } = getState();
-      // console.log(isGrowing);
+      const t = time + 0.1;
+      console.log(t);
       if (maxLetters === 0) {
         const note = musicScale.get(currNoteIndex);
 
-        synth.triggerAttackRelease(note.toString(), time + 0.1, 0.5);
+        synth.triggerAttackRelease(note.toString(), t, 0.5);
       } else if (!isGrowing) {
         const currLetter = sentence[currLetterIndex];
         // if (currLetterIndex === 0) {
@@ -79,7 +79,7 @@ function Ground1(color) {
         }
         const note = musicScale.get(currNoteIndex);
         // console.log(currNoteIndex);
-        synth.triggerAttackRelease(note.toString(), time + 0.1, 0.5);
+        synth.triggerAttackRelease(note.toString(), t, 0.5);
 
         currLetterIndex++;
         // currLetterIndex = currLetterIndex % maxLetters;
@@ -88,7 +88,7 @@ function Ground1(color) {
           currNoteIndex = Math.floor(random(0, notes.length * 3) / 2);
           synth.triggerAttackRelease(
             musicScale.get(currNoteIndex).toString(),
-            time + 0.1,
+            t,
             0.1
           );
         }

@@ -13,7 +13,7 @@ function Plant(props) {
 
   let maxLetters = 0;
   let framesPerStep = parseInt(segmentLength / 8);
-  let growSpeed = 100;
+  let growSpeed = 1;
   let isDoneGrowing = false;
   let isGrowing = true;
   this.count = 0;

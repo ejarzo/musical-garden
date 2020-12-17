@@ -1,7 +1,10 @@
 const plants = [];
 const waterDrops = [];
 
+let c; // the canvas
+
 const btns = [];
+
 const clearBtns = () => {
   btns.forEach((btn) => {
     btn.removeClass("isActive");
@@ -339,7 +342,8 @@ const drawButtons = () => {
 
 function setup() {
   pixelDensity(1);
-  createCanvas(window.innerWidth, window.innerHeight);
+  c = createCanvas(window.innerWidth, window.innerHeight);
+  c.mousePressed(canvasMousePressed);
   groundTriangles = getGroundTriangles();
   backgroundGraphics = createGraphics(width, height);
   drawBackground();
@@ -361,14 +365,14 @@ function draw() {
 
   drawButtons();
 
-  if (activeTool === "draw") {
+  if (activeTool === "draw" && mouseIsInDrawArea()) {
     fill(...COLORS[activeSeedType]);
     noStroke();
     textAlign(CENTER);
     text("Click to plant", mouseX, mouseY - 25);
   }
 
-  if (activeTool === "water") {
+  if (activeTool === "water" && mouseIsInDrawArea()) {
     fill(...COLORS.WATER);
     noStroke();
     text("Hold to water", mouseX, mouseY - 25);
@@ -398,7 +402,7 @@ function mouseReleased() {
   }, 400);
 }
 
-function mousePressed() {
+const canvasMousePressed = () => {
   if (!mouseIsInDrawArea()) return;
 
   waterDelta = 0;
@@ -434,7 +438,7 @@ function mousePressed() {
     wateringNoise.volume.value = -Infinity;
     wateringNoise.volume.linearRampTo(0.3, 0.4);
   }
-}
+};
 
 function keyPressed() {
   if (key === "1") {

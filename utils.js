@@ -1,5 +1,8 @@
 const mouseIsInDrawArea = () =>
-  mouseX < width && mouseY < height && !(mouseX < 280 && mouseY < 80);
+  mouseX < width &&
+  mouseY < height &&
+  !(mouseX < 280 && mouseY < 90) &&
+  !(mouseX > width - 80 && mouseY < 80);
 
 const sign = (p1, p2, p3) => {
   return (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);

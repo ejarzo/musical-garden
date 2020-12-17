@@ -1,31 +1,138 @@
 <html>
-<head>
-    <link rel="stylesheet" href="./style.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet" />
-</head>
-<body>
-  <div>
-  </div>
-  <div class="info">
-    <span>Made by
-      <a href="https://ejarzo.github.io" target="blank">Elias Jarzombek</a></span>
-    |
-    <a href="https://github.com/ejarzo/musical-garden" target="blank">GitHub</a>
-  </div>
-  <script language="javascript" type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.70/Tone.js"></script>
-  <script language="javascript" type="text/javascript" src="teoria.js"></script>
-  <script language="javascript" type="text/javascript" src="utils.js"></script>
-  <script language="javascript" type="text/javascript" src="audio.js"></script>
-  <script language="javascript" type="text/javascript" src="LSystem.js"></script>
-  <script language="javascript" type="text/javascript" src="Rule.js"></script>
-  <script language="javascript" type="text/javascript" src="Ground1.js"></script>
-  <script language="javascript" type="text/javascript" src="Ground2.js"></script>
-  <script language="javascript" type="text/javascript" src="Ground3.js"></script>
-  <script language="javascript" type="text/javascript" src="Ground4.js"></script>
-  <script language="javascript" type="text/javascript" src="Ground5.js"></script>
-  <script language="javascript" type="text/javascript" src="Plant.js"></script>
-  <script language="javascript" type="text/javascript" src="sketch.js"></script>
-</body>
+  <head>
+    <link rel="stylesheet" href="./style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a
+      href="#"
+      data-modal-trigger
+      aria-controls="project-description-modal"
+      aria-expanded="false"
+      class="more-info"
+      >?</a
+    >
+    <div class="info">
+      <span
+        >Made by
+        <a href="https://ejarzo.github.io" target="blank"
+          >Elias Jarzombek</a
+        ></span
+      >
+      |
+      <a href="https://github.com/ejarzo/musical-garden" target="blank"
+        >GitHub</a
+      >
+    </div>
+
+    <section class="modal" id="project-description-modal" data-modal-target>
+      <div class="modal__overlay" data-modal-close tabindex="-1"></div>
+      <div class="modal__wrapper">
+        <div class="modal__header">
+          <div class="modal__title"><h1>Musical Garden</h1></div>
+          <button
+            class="modal__close"
+            data-modal-close
+            aria-label="Close Modal"
+          ></button>
+        </div>
+        <div class="modal__content">
+          <p>
+            This web instrument allows you to make music by planting and
+            watering different kinds of “audio seeds” that grow into lush
+            melodies and textures.
+          </p>
+          <p>
+            Watering the seeds causes them to grow both visually and sonically,
+            and distinct areas in the garden cause the plants to behave in
+            different ways.
+          </p>
+          <p>
+            Composing using this interface is more spacial than linear. Plants
+            emanate sound that you navigate through using the mouse, so moving
+            through the space influences the mix of sounds.
+          </p>
+          <p>
+            The implementation represents different types of sound using basic
+            geometric forms and generates growth patterns algorithmically using
+            L-Systems — a way of modeling generational systems. These patterns
+            are at times also used to produce melodies.
+          </p>
+          <p>The musical garden invites exploration...</p>
+        </div>
+      </div>
+    </section>
+
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.70/Tone.js"></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="teoria.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="modal.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="utils.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="audio.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="LSystem.js"
+    ></script>
+    <script language="javascript" type="text/javascript" src="Rule.js"></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="Ground1.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="Ground2.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="Ground3.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="Ground4.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="Ground5.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="Plant.js"
+    ></script>
+    <script
+      language="javascript"
+      type="text/javascript"
+      src="sketch.js"
+    ></script>
+  </body>
 </html>
