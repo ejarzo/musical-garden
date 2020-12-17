@@ -350,35 +350,36 @@ function setup() {
 function draw() {
   // background(15);
   image(backgroundGraphics, 0, 0, width, height);
-  if (activeTool === "draw") {
-    fill(...COLORS[activeSeedType]);
-    noStroke();
-    text(
-      "Click to plant",
-      20 + 50 * Object.keys(plantTypes).indexOf(activeSeedType),
-      15
-    );
-  }
-  if (activeTool === "water") {
-    fill(...COLORS.WATER);
-    noStroke();
-    text("Hold to water", 240, 15);
-  }
-  drawButtons();
+
   plants
     // .sort((a, b) => a.startPos.y - b.startPos.y)
     .forEach((plant) => {
       push();
-      plant.render2();
+      plant.render();
       pop();
     });
+
+  drawButtons();
+
+  if (activeTool === "draw") {
+    fill(...COLORS[activeSeedType]);
+    noStroke();
+    textAlign(CENTER);
+    text("Click to plant", mouseX, mouseY - 25);
+  }
+
+  if (activeTool === "water") {
+    fill(...COLORS.WATER);
+    noStroke();
+    text("Hold to water", mouseX, mouseY - 25);
+  }
 
   if (!mouseIsInDrawArea()) {
     return;
   }
 
   if (activeTool === "draw") {
-    fill(...COLORS[activeSeedType], 0.8);
+    fill(...COLORS[activeSeedType], 0.3);
     plantTypes[activeSeedType].drawSeed(mouseX, mouseY);
   }
 

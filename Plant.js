@@ -8,12 +8,12 @@ function Plant(props) {
     drawSeed,
     ground,
   } = props;
-  this.startPos = startPos;
+
   const { segmentLength } = ruleset;
 
   let maxLetters = 0;
   let framesPerStep = parseInt(segmentLength / 8);
-  let growSpeed = 1;
+  let growSpeed = 100;
   let isDoneGrowing = false;
   let isGrowing = true;
   this.count = 0;
@@ -73,7 +73,7 @@ function Plant(props) {
     saturationMultiplier = 0;
   }
 
-  this.render2 = function () {
+  this.render = function () {
     const mouseD = dist(mouseX, mouseY, startPos.x, startPos.y);
     let lightness = map(mouseD, 0, mouseMaxDistance, 10, -5);
     lightness = constrain(lightness, -5, 10);
